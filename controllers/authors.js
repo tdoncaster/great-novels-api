@@ -17,10 +17,30 @@ const getAuthorByIdWithNovelsGenres = async (request, response) => {
     }],
   })
 
+  const getAuthorByFuzzy = async (request, response) => {
+    const { name } = request.params
+  
+    const author = await models.Manufacturers.findOne({
+      attribute: [ 'lastName' ],
+      where: {
+        name: { [models.Op.like]: `%${lastName}%` }
+      },
+  
+      include: [{
+        model: models.novels,
+        include: [{ model: models.genres }]
+      }]
+    })
+  
+
+
+
+
+
   return author
     ? response.send(author)
     : response.sendStatus(404)
-}
+  }
 
 
-module.exports = { getAllAuthors, getAuthorByIdWithNovelsGenres, }
+module.exports = { getAllAuthors, getAuthorByIdWithNovelsGenres, getAuthorByFuzzy }
