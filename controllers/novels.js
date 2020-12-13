@@ -10,7 +10,12 @@ const getNovelsById = async (request, response) => {
   const { id } = request.params
 
   const novels = await models.novels.findOne({
-    where: { id },
+    where: {
+      [models.Op.or]: [
+        { id: id },
+        { title: { [models.Op.like]: `%${id}%` } }
+      ]
+    },
     include: [
       { model: models.authors },
       { model: models.genres }

@@ -1,5 +1,5 @@
 const express = require('express')
-const { getAllAuthors, getAuthorByIdWithNovelsGenres, getAuthorByFuzzy } = require('./controllers/authors')
+const { getAllAuthors, getAuthorByIdWithNovelsGenres, } = require('./controllers/authors')
 const { getAllGenres, getGenresById } = require('./controllers/genres')
 const { getAllNovels, getNovelsById } = require('./controllers/novels')
 
@@ -7,7 +7,7 @@ const app = express()
 
 app.get('/authors', getAllAuthors)
 app.get('/authors/:id', getAuthorByIdWithNovelsGenres)
-app.get('/authors/:id', getAuthorByFuzzy)
+
 
 app.get('/novels', getAllNovels)
 app.get('/novels/:id', getNovelsById)

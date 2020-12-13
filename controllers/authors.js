@@ -10,37 +10,23 @@ const getAuthorByIdWithNovelsGenres = async (request, response) => {
   const { id } = request.params
 
   const author = await models.authors.findOne({
-    where: { id },
+    where: {
+      [models.Op.or]: [
+        { id: id },
+        { nameLast: { [models.Op.like]: `%${id}%` } },
+      ]
+    },
     include: [{
       model: models.novels,
       include: [{ model: models.genres }]
-    }],
+    }]
   })
-
-  const getAuthorByFuzzy = async (request, response) => {
-    const { name } = request.params
-  
-    const author = await models.Manufacturers.findOne({
-      attribute: [ 'lastName' ],
-      where: {
-        name: { [models.Op.like]: `%${lastName}%` }
-      },
-  
-      include: [{
-        model: models.novels,
-        include: [{ model: models.genres }]
-      }]
-    })
-  
-
-
-
 
 
   return author
     ? response.send(author)
     : response.sendStatus(404)
-  }
+}
 
 
-module.exports = { getAllAuthors, getAuthorByIdWithNovelsGenres, getAuthorByFuzzy }
+module.exports = { getAllAuthors, getAuthorByIdWithNovelsGenres, }

@@ -53,7 +53,7 @@ module.exports = {
     return queryInterface.createTable('novelsgenres', {
       id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
       novelId: { type: Sequelize.INTEGER, references: { model: 'novels', key: 'id' } },
-      genreId: { type: Sequelize.INTEGER, references: { model: 'genre', key: 'id' } },
+      genreId: { type: Sequelize.INTEGER, references: { model: 'genres', key: 'id' } },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') },
       updatedAt: {
         type: Sequelize.DATE,
